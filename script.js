@@ -1,0 +1,61 @@
+// Menu mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.getElementById('main-nav');
+            
+                menuBtn.addEventListener('click', function() {
+                        nav.classList.toggle('active');
+                            });
+                                
+                                    // Fechar menu ao clicar em um link
+                                        const navLinks = document.querySelectorAll('nav a');
+                                            navLinks.forEach(link => {
+                                                    link.addEventListener('click', function() {
+                                                                nav.classList.remove('active');
+                                                                        });
+                                                                            });
+                                                                                
+                                                                                    // Destaque de menu ativo
+                                                                                        const currentPage = window.location.pathname.split('/').pop();
+                                                                                            const navItems = document.querySelectorAll('nav ul li a');
+                                                                                                
+                                                                                                    navItems.forEach(item => {
+                                                                                                            if (item.getAttribute('href') === currentPage || 
+                                                                                                                       (currentPage === '' && item.getAttribute('href') === 'index.html')) {
+                                                                                                                                   item.classList.add('active');
+                                                                                                                                           }
+                                                                                                                                               });
+                                                                                                                                                   
+                                                                                                                                                       // Animação de elementos ao rolar
+                                                                                                                                                           const observerOptions = {
+                                                                                                                                                                   root: null,
+                                                                                                                                                                           rootMargin: '0px',
+                                                                                                                                                                                   threshold: 0.1
+                                                                                                                                                                                       };
+                                                                                                                                                                                           
+                                                                                                                                                                                               const observer = new IntersectionObserver((entries) => {
+                                                                                                                                                                                                       entries.forEach(entry => {
+                                                                                                                                                                                                                   if (entry.isIntersecting) {
+                                                                                                                                                                                                                                   entry.target.classList.add('animate-in');
+                                                                                                                                                                                                                                               }
+                                                                                                                                                                                                                                                       });
+                                                                                                                                                                                                                                                           }, observerOptions);
+                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                   // Observar elementos para animação
+                                                                                                                                                                                                                                                                       document.querySelectorAll('.destaque-card, .mercado-item').forEach(item => {
+                                                                                                                                                                                                                                                                               observer.observe(item);
+                                                                                                                                                                                                                                                                                   });
+                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                           // Formulário de newsletter
+                                                                                                                                                                                                                                                                                               const newsletterForm = document.querySelector('.newsletter-form');
+                                                                                                                                                                                                                                                                                                   if (newsletterForm) {
+                                                                                                                                                                                                                                                                                                           newsletterForm.addEventListener('submit', function(e) {
+                                                                                                                                                                                                                                                                                                                       e.preventDefault();
+                                                                                                                                                                                                                                                                                                                                   const email = this.querySelector('input[type="email"]').value;
+                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                           // Simulação de envio
+                                                                                                                                                                                                                                                                                                                                                                       alert(`Obrigado por assinar nossa newsletter com o email: ${email}`);
+                                                                                                                                                                                                                                                                                                                                                                                   this.reset();
+                                                                                                                                                                                                                                                                                                                                                                                           });
+                                                                                                                                                                                                                                                                                                                                                                                               }
+                                                                                                                                                                                                                                                                                                                                                                                               });
